@@ -45,11 +45,13 @@ CREATE TABLE `config_info_item` (
   `data_id` varchar(255) NOT NULL COMMENT 'data_id',
   `group_id` varchar(255) DEFAULT NULL,
   `item_key` varchar(128) NOT NULL,
-	`item_value` longtext NOT NULL COMMENT 'content',
+  `item_value` longtext NOT NULL COMMENT 'content',
   `item_comment` varchar(128) DEFAULT NULL ,
   `item_meaning` varchar(128) DEFAULT NULL ,
   `restart_effect` boolean NOT NULL DEFAULT false,
-  `item_status` varchar(20) NOT NULL DEFAULT 'NEW',
+  `item_status` varchar(20) NOT NULL DEFAULT 'COMMITTED',
+  `commit_id` varchar (60) NOT NULL,
+  `system_scope` boolean NOT NULL DEFAULT false,
   `md5` varchar(32) DEFAULT NULL COMMENT 'md5',
   `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -63,7 +65,7 @@ CREATE TABLE `config_info_item` (
   `type` varchar(64) DEFAULT NULL,
   `c_schema` text,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_configinfo_datagrouptenant` (`data_id`,`group_id`,`tenant_id`)
+  UNIQUE KEY `uk_configinfo_datagrouptenant` (`data_id`,`group_id`,`tenant_id`, `item_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='config_info_item';
 
 /******************************************/
